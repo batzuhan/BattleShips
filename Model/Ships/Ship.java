@@ -12,12 +12,15 @@ public abstract class Ship {
 
 
     abstract void hit();
+    //code here
         //        Called when (any) position of the ship is hit.
 
     abstract void isHit();
+    //code here
         //        Checks whether the ship has been hit (on at least one position).
 
     abstract void isSinking();
+    //code here
         //   Check whether the ship has been sunk (all its positions have been hit).
 
     public void getHitMessage(){

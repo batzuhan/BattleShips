@@ -6,7 +6,7 @@ import Model.Ships.Ship;
 public class Field {
     private int rows;
     private int columns;
-    private int[][] locations;
+    private Location[][] locations;
     private Player player;
 
 

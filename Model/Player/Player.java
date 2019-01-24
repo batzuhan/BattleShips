@@ -28,17 +28,23 @@ public abstract class Player {
         return opponentField;
     }
 
-    public void setOpponentField(Field opponentField) {
+    private void setOpponentField(Field opponentField) {
         this.opponentField = opponentField;
     }
 
-    abstract void initField(int r, int c);
-    //Creates the 􏰀ield of the player, with the given number of rows and columns.
+    public void initField(int r, int c){
+        Field boardField = new Field(r,c);
+        this.setOpponentField(boardField);
+    }
 
-    abstract void placeShips(Field otherField);
+    public void placeShips(Field otherField){
+
+    }
     //Places the player’s ships on the given 􏰀ield (which will be the opponent’s 􏰀field).
 
-    abstract void hasWon();
+    public void hasWon(){
+
+    }
     //Checks if the player has sunk all the ships on his 􏰀field.
 
     abstract void selectMove();
