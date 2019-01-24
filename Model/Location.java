@@ -1,17 +1,57 @@
 package Model;
 
+import Model.Ships.Ship;
+
 public class Location {
-    /*This class represents a position on the 􏰀ield of a player, and contains all relevant data.
-A location of the 􏰀ield stores its row and col (column), a reference to the ship that occupies it and whether it is marked by the player.
-Apart from the respective accessor and mutator methods, the class contains the following meth- ods:
-mark()
-Called when the player selects this location. Apart from setting this location as marked, it also
-hits the ship that occupies it.
-isMarked()
-Checks whether this position has been selected by the player.
-isEmpty()
-Checks whether this position is empty (no ship occupies it).
-isHit()
-Checks whether the ship that occupies this position has been hit on this position.
-*/
+    private int row;
+    private int col;
+    private Ship occupyingShip;
+    private boolean isMarked;
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public Ship getOccupyingShip() {
+        return occupyingShip;
+    }
+
+    public void setOccupyingShip(Ship occupyingShip) {
+        this.occupyingShip = occupyingShip;
+    }
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
+    }
+
+    public void mark(){
+        //Called when the player selects this location. Apart from setting this location as marked, it also
+        //hits the ship that occupies it.
+    }
+
+    public void isEmpty(){
+        //getOccupyingShip == null
+        //Checks whether this position is empty (no ship occupies it).
+    }
+
+    public void isHit(){
+        //Checks whether the ship that occupies this position has been hit on this position.
+    }
+
 }
