@@ -8,11 +8,11 @@ public abstract class Ship {
     private int points;
     private String letter;
     private Field field;
-    private Location start;
+    public int[] start;
     private String direction;
     private int counter;
 
-    public Ship(int length, int points, String letter, Field field, Location start, String direction) {
+    public Ship(int length, int points, String letter, Field field, int[] start, String direction) {
         this.length = length;
         this.points = points;
         this.letter = letter;
@@ -64,11 +64,11 @@ public abstract class Ship {
     }
 
 
-    public Location getStart() {
+    public int[] getStart() {
         return start;
     }
 
-    public void setStart(Location start) {
+    public void setStart(int[] start) {
         this.start = start;
     }
 
