@@ -1,7 +1,6 @@
 package Model.Ships;
 
 import Model.Field;
-import Model.Location;
 
 public abstract class Ship {
     private int length;//(the number of positions it occupies)

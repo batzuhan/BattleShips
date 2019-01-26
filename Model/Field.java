@@ -114,7 +114,7 @@ public class Field {
     public void processValidMove(Location moveLoc) {
 
     }
-    public void placeShipRandomly(Ship s, int maxTries, boolean checkMarked) {
+    public void placeShipRandomly(Ship s, int maxTries) {
 
     }
 
