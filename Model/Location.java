@@ -6,22 +6,13 @@ public class Location {
     private int row;
     private int col;
     private Ship occupyingShip;
-    private boolean isMarked;
+    private boolean isMarked = false;
 
-    public int getRow() {
-        return row;
-    }
+    public void mark(){
+        if(getOccupyingShip()!=null)
+            occupyingShip.hit();
 
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
+        this.setMarked(true);
     }
 
     public Ship getOccupyingShip() {
@@ -40,18 +31,35 @@ public class Location {
         isMarked = marked;
     }
 
-    public void mark(){
-        //Called when the player selects this location. Apart from setting this location as marked, it also
-        //hits the ship that occupies it.
+    public int getRow() {
+        return row;
     }
 
-    public void isEmpty(){
-        //getOccupyingShip == null
-        //Checks whether this position is empty (no ship occupies it).
+    public void setRow(int row) {
+        this.row = row;
     }
 
-    public void isHit(){
-        //Checks whether the ship that occupies this position has been hit on this position.
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    //gözden geçir
+    public boolean isEmpty(){
+        if(getOccupyingShip() == null)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean isHit(){
+        if(getOccupyingShip()!=null&&isMarked())
+            return true;
+        else
+            return false;
     }
 
 }

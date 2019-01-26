@@ -3,13 +3,14 @@ package Model.Player;
 import Model.Field;
 
 public class PlayerHuman extends Player{
-    @Override
-    void initField(int r, int c) {
 
+
+    public PlayerHuman(String name) {
+        super(name);
     }
 
     @Override
-    void placeShips(Field otherField) {
+    public void placeShips(Field otherField) {
 
     }
 

@@ -1,37 +1,47 @@
 package Model.Ships;
 
 import Model.Field;
+import Model.Location;
 
 public abstract class Ship {
     private int length;//(the number of positions it occupies)
     private int points;
-    private char letter;
+    private String letter;
     private Field field;
-    private String start;
+    private Location start;
     private String direction;
 
+    public Ship(int length, int points, String letter, Field field, Location start, String direction) {
+        this.length = length;
+        this.points = points;
+        this.letter = letter;
+        this.field = field;
+        this.start = start;
+        this.direction = direction;
+    }
 
-    abstract void hit();
-    //code here
+    public void hit(){
+
+    }
         //        Called when (any) position of the ship is hit.
 
-    abstract void isHit();
-    //code here
+    public void isHit(){
+
+    }
         //        Checks whether the ship has been hit (on at least one position).
 
-    abstract void isSinking();
-    //code here
+    public void isSinking(){
+
+    }
         //   Check whether the ship has been sunk (all its positions have been hit).
 
-    public void getHitMessage(){
-        //code here
-        //        Returns the message to be printed when a position of the ship is hit. This message should be the same for all ships.
+    public String getHitMessage() {
+        return "A ship is hit.";
     }
+
     abstract void getSinkMessage();
-        //   Returns the message to be printed when the ship is sunk. This message must state the type of the ship.
 
     abstract void threaten();
-        // Called when the ship is threatened and implements its reaction to the thread, as described above for each type of ship.
 
     public int getLength() {
         return length;
@@ -42,7 +52,7 @@ public abstract class Ship {
     }
 
 
-    public char getLetter() {
+    public String getLetter() {
         return letter;
     }
 
@@ -52,11 +62,11 @@ public abstract class Ship {
     }
 
 
-    public String getStart() {
+    public Location getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(Location start) {
         this.start = start;
     }
 
