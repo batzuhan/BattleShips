@@ -47,11 +47,9 @@ public class Field {
         return null;
     }
 
-    public void placeShipRandomly(Ship s, int maxTries, boolean checkMarked) {
 
-    }
 
-    public boolean placeShip(Ship s, boolean checkMarked) {
+    public boolean placeShip(Ship s) {
         boolean isSuccessful=false;
         int length = s.getLength();
         String direction = s.getDirection();
@@ -114,6 +112,9 @@ public class Field {
     }
 
     public void processValidMove(Location moveLoc) {
+
+    }
+    public void placeShipRandomly(Ship s, int maxTries, boolean checkMarked) {
 
     }
 
