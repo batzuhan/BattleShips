@@ -11,8 +11,8 @@ public class Submarine extends Ship {
     }
 
     @Override
-    void getSinkMessage() {
-
+    public String getSinkMessage(){
+        return "A Submarine is sank!";
     }
 
     @Override

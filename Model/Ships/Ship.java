@@ -10,6 +10,7 @@ public abstract class Ship {
     private Field field;
     private Location start;
     private String direction;
+    private int counter;
 
     public Ship(int length, int points, String letter, Field field, Location start, String direction) {
         this.length = length;
@@ -21,25 +22,26 @@ public abstract class Ship {
     }
 
     public void hit(){
-
+        counter++;
     }
-        //        Called when (any) position of the ship is hit.
 
-    public void isHit(){
-
+    public boolean isHit(){
+        if(counter>0){
+            return true;
+        }else{
+            return false;
+        }
     }
-        //        Checks whether the ship has been hit (on at least one position).
 
-    public void isSinking(){
-
+    public boolean isSinking(){
+        return (counter == length);
     }
-        //   Check whether the ship has been sunk (all its positions have been hit).
 
     public String getHitMessage() {
         return "A ship is hit.";
     }
 
-    abstract void getSinkMessage();
+    abstract String getSinkMessage();
 
     abstract void threaten();
 
