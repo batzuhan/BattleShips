@@ -20,7 +20,7 @@ public class Field {
         {
             for (int col = 0; col < locations[row].length; col++)
             {
-                Location tempLocation = new Location();
+                Location tempLocation = new Location(row,col,null,false);
                 locations[row][col] = tempLocation;
             }
         }

@@ -6,7 +6,14 @@ public class Location {
     private int row;
     private int col;
     private Ship occupyingShip;
-    private boolean isMarked = false;
+    private boolean isMarked;
+
+    public Location(int row, int col, Ship occupyingShip, boolean isMarked) {
+        this.row = row;
+        this.col = col;
+        this.occupyingShip = occupyingShip;
+        this.isMarked = isMarked;
+    }
 
     public void mark(){
         if(getOccupyingShip()!=null)
