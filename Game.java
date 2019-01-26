@@ -9,9 +9,11 @@ public class Game {
     private Player player1;
     private Player player2;
 
-    public Game() {
-        player1 = new PlayerHuman();
-        player2 = new PlayerComputer();
+    public Game(int rows, int columns, Player player1, Player player2) {
+        this.rows = rows;
+        this.columns = columns;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void init(){
@@ -28,5 +30,13 @@ public class Game {
     }
     public void showResult(){
 
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
     }
 }

@@ -1,3 +1,7 @@
+import Model.Player.Player;
+import Model.Player.PlayerComputer;
+import Model.Player.PlayerHuman;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
@@ -10,9 +14,9 @@ public class GUI {
 
     public GUI() {
         JFrame frame = new JFrame();
-        frame.setLayout(new GridLayout(3,3));
+        frame.setLayout(new FlowLayout());
         JPanel mainPanel = new JPanel();
-        Integer[] choices = {10,11,12,13,14,15};
+        Integer[] choices = {10, 11, 12, 13, 14, 15};
         JLabel widthLabel = new JLabel("Select the width: ");
         JComboBox<Integer> cbw = new JComboBox<Integer>(choices);
         JLabel heightLabel = new JLabel("Select the height: ");
@@ -50,8 +54,10 @@ public class GUI {
         mainPanel.add(player2User);
         mainPanel.add(player2CPU);
 
-        JButton settingsSaveButton = new JButton("Add new Data");
-        //settingsSaveButton.addActionListener(new settingsSaveButton(cbw,cbh));
+        JButton settingsSaveButton = new JButton("Save Settings!");
+        Player player1 = new PlayerHuman("a");
+        Player player2 = new PlayerComputer("b");
+        settingsSaveButton.addActionListener(new settingsSaveButton(cbh.getSelectedItem(), cbw.getSelectedItem(),player1,player2));
         mainPanel.add(settingsSaveButton);
 
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -59,28 +65,52 @@ public class GUI {
         frame.setLocation(450, 200);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
     }
 
     public class settingsSaveButton implements ActionListener {
+        private int rows;
+        private int cols;
+        private Player player1;
+        private Player player2;
+
+        public settingsSaveButton(Object rows, Object cols,Player player1,Player player2) {
+            int rowsInt = Integer.parseInt(rows.toString());
+            int colsInt = Integer.parseInt(cols.toString());
+            this.rows = rowsInt;
+            this.cols = colsInt;
+            this.player1=player1;
+            this.player2=player2;
+        }
+
         public void actionPerformed(ActionEvent e) {
-            JFrame addingFrame = new JFrame();
-            addingFrame.setLayout(new BorderLayout());
-            JPanel mainPanel = new JPanel();
-            JButton button1 = new JButton("Add new Data from Local Files");
-            JButton button2 = new JButton("Search the Internet");
-            //button1.addActionListener(new ButtonListener4());
-            //button2.addActionListener(new ButtonListener5());
-            mainPanel.add(button1);
-            mainPanel.add(button2);
-            addingFrame.add(mainPanel);
-            addingFrame.setSize(300, 100);
-            addingFrame.setLocation(150, 200);
-            addingFrame.setVisible(true);
-            addingFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            addingFrame.setResizable(false);
+            Game game = new Game(rows,cols,player1,player2);
+            game.init();
+            gameField gameField = new gameField(game);
         }
     }
+
+
+    public class gameField {
+
+        public gameField(Game game) {
+            JFrame gameFrame = new JFrame();
+            JPanel mainPanel = new JPanel();
+            mainPanel.setLayout(new GridLayout(game.getRows(), game.getColumns()));
+            JButton buttons[] = new JButton[game.getRows() * game.getColumns()];
+            for (int i = 0; i < game.getRows()*game.getColumns(); i++) {
+                    buttons[i] = new JButton();
+                    buttons[i].setText("");
+                    mainPanel.add(buttons[i]);
+            }
+                gameFrame.add(mainPanel);
+                gameFrame.setSize(500, 500);
+                gameFrame.setLocation(150, 200);
+                gameFrame.setVisible(true);
+                gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                gameFrame.setResizable(true);
+            }
+        }
 
 
 
@@ -112,7 +142,6 @@ public class GUI {
         }
 
     }
-
 
 
 }

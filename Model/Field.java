@@ -4,6 +4,8 @@ import Model.Exceptions.InvalidLocationException;
 import Model.Player.Player;
 import Model.Ships.Ship;
 
+import java.util.Random;
+
 public class Field {
     private int rows;
     private int columns;
@@ -111,10 +113,61 @@ public class Field {
         }
     }
 
-    public void processValidMove(Location moveLoc) {
+
+    public void placeShipRandomly(Ship s, int maxTries) {
+        int tries=0;
+        do {
+            tries++;
+            int length = s.getLength();
+            String [] directions = {"HORIZONTAL", "VERTICAL"};
+            Random random = new Random();
+            int select = random.nextInt(directions.length);
+            String direction = directions[select];
+            s.setDirection(direction);
+
+            int row = random.nextInt(rows);
+            int col = random.nextInt(columns);
+            int start[] = {row,col};
+            s.setStart(start);
+
+            if (direction.equals("HORIZONTAL")) {
+                boolean check = false;
+                for (int i = s.start[1]; i < s.start[1] + length; i++) {
+                    if (locations[i][s.start[1]].isEmpty()) {
+
+                    } else {
+                        check = true;
+                    }
+                }
+                if (check) {
+
+                } else {
+                    for (int i = s.start[1]; i < s.start[1] + length; i++) {
+                        locations[s.start[0]][i].setOccupyingShip(s);
+                    }
+                }
+            } else if (direction.equals("VERTICAL")) {
+                boolean check = false;
+                for (int i = s.start[0]; i < s.start[0] + length; i++) {
+                    if (locations[i][s.start[1]].isEmpty()) {
+
+                    } else {
+                        check = true;
+                    }
+                }
+                if (check) {
+
+                } else {
+                    for (int i = s.start[0]; i < s.start[0] + length; i++) {
+                        locations[i][s.start[1]].setOccupyingShip(s);
+                    }
+                }
+            }
+        }while (maxTries!=tries);
 
     }
-    public void placeShipRandomly(Ship s, int maxTries) {
+
+    public void processValidMove(Location moveLoc) {
 
     }
 
@@ -125,7 +178,10 @@ public class Field {
     }
 
     public void toStringWithShips() {
-        //Returns a string for thw whole 􏰀ield that can be used to print it as described at the section “End of the game”.
-        //Apart from the above methods, it is expected that the Field class will contain other methods to implement speci􏰀ic functionalities, such as the threats to ships.
+
+    }
+
+    public Location[][] getLocations() {
+        return locations;
     }
 }
