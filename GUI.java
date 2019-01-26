@@ -10,7 +10,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class GUI {
-    private boolean choice;
+    private boolean choice1;
+    private boolean choice2;
 
     public GUI() {
         JFrame frame = new JFrame();
@@ -21,6 +22,10 @@ public class GUI {
         JComboBox<Integer> cbw = new JComboBox<Integer>(choices);
         JLabel heightLabel = new JLabel("Select the height: ");
         JComboBox<Integer> cbh = new JComboBox<Integer>(choices);
+        JLabel player1Label = new JLabel("Player1 name: ");
+        JTextField player1Field = new JTextField();
+        JLabel player2Label = new JLabel("Player2 name: ");
+        JTextField player2Field = new JTextField();
         JRadioButton player1User = new JRadioButton("player1User");
         player1User.setMnemonic(KeyEvent.VK_B);
         player1User.setActionCommand("player1User");
@@ -35,11 +40,12 @@ public class GUI {
         JRadioButton player2CPU = new JRadioButton("player2CPU");
         player2CPU.setMnemonic(KeyEvent.VK_C);
         player2CPU.setActionCommand("player2CPU");
-        ButtonGroup group = new ButtonGroup();
-        group.add(player1User);
-        group.add(player1CPU);
-        group.add(player2User);
-        group.add(player2CPU);
+        ButtonGroup group1 = new ButtonGroup();
+        ButtonGroup group2 = new ButtonGroup();
+        group1.add(player1User);
+        group1.add(player1CPU);
+        group2.add(player2User);
+        group2.add(player2CPU);
         player1User.addActionListener(new RadioButtons());
         player1CPU.addActionListener(new RadioButtons());
         player2User.addActionListener(new RadioButtons());
@@ -49,15 +55,17 @@ public class GUI {
         mainPanel.add(cbw);
         mainPanel.add(heightLabel);
         mainPanel.add(cbh);
+        mainPanel.add(player1Label);
+        mainPanel.add(player1Field);
+        mainPanel.add(player2Label);
+        mainPanel.add(player2Field);
         mainPanel.add(player1User);
         mainPanel.add(player1CPU);
         mainPanel.add(player2User);
         mainPanel.add(player2CPU);
 
         JButton settingsSaveButton = new JButton("Save Settings!");
-        Player player1 = new PlayerHuman("a");
-        Player player2 = new PlayerComputer("b");
-        settingsSaveButton.addActionListener(new settingsSaveButton(cbh.getSelectedItem(), cbw.getSelectedItem(),player1,player2));
+        settingsSaveButton.addActionListener(new settingsSaveButton(cbh.getSelectedItem(), cbw.getSelectedItem(),player1Field,player2Field));
         mainPanel.add(settingsSaveButton);
 
         frame.add(mainPanel, BorderLayout.CENTER);
@@ -71,19 +79,31 @@ public class GUI {
     public class settingsSaveButton implements ActionListener {
         private int rows;
         private int cols;
-        private Player player1;
-        private Player player2;
+        private String player1Name;
+        private String player2Name;
 
-        public settingsSaveButton(Object rows, Object cols,Player player1,Player player2) {
+        public settingsSaveButton(Object rows, Object cols,JTextField player1Name,JTextField player2Name) {
             int rowsInt = Integer.parseInt(rows.toString());
             int colsInt = Integer.parseInt(cols.toString());
             this.rows = rowsInt;
             this.cols = colsInt;
-            this.player1=player1;
-            this.player2=player2;
+            this.player1Name=player1Name.getText();
+            this.player2Name=player2Name.getText();
         }
 
         public void actionPerformed(ActionEvent e) {
+            Player player1;
+            Player player2;
+            if(choice1){
+                player1 = new PlayerHuman(player1Name);
+            }else{
+                player1 = new PlayerComputer(player1Name);
+            }
+            if(choice2){
+                player2 = new PlayerHuman(player2Name);
+            }else{
+                player2 = new PlayerComputer(player2Name);
+            }
             Game game = new Game(rows,cols,player1,player2);
             game.init();
             gameField gameField = new gameField(game);
@@ -119,10 +139,15 @@ public class GUI {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Author")) {
-                choice = false;
+            if (e.getActionCommand().equals("player1User")) {
+                choice1 = true;
             } else {
-                choice = true;
+                choice1 = true;
+            }
+            if (e.getActionCommand().equals("player2User")) {
+                choice2 = true;
+            } else {
+                choice2 = true;
             }
         }
     }
