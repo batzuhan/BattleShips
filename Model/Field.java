@@ -129,7 +129,7 @@ public class Field {
             int col = random.nextInt(columns);
             int start[] = {row,col};
             s.setStart(start);
-
+//ERROR
             if (direction.equals("HORIZONTAL")) {
                 boolean check = false;
                 for (int i = s.start[1]; i < s.start[1] + length; i++) {
