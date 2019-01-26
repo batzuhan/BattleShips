@@ -42,8 +42,12 @@ public abstract class Player {
 
     public abstract void placeShips(Field otherField);
 
-    abstract void hasWon();
+    public boolean hasWon(){
+        if(score==22)
+        return true;
+        return false;
+    }
 
-    abstract void selectMove();
+    abstract void selectMove(String move);
 
 }
