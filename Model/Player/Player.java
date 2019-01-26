@@ -36,7 +36,7 @@ public abstract class Player {
     }
 
     public void initField(int r, int c){
-        Field boardField = new Field(r,c);
+        Field boardField = new Field(r,c,this);
         this.setOpponentField(boardField);
     }
 
