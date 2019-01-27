@@ -30,7 +30,7 @@ public class PlayerComputer extends Player{
     }
 
     @Override
-    void selectMove(String move) {
+    public void selectMove(String move) {
         String row = move.substring(0,1).toLowerCase();
         String col = move.substring(1,3).toLowerCase();
 

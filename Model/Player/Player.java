@@ -48,6 +48,6 @@ public abstract class Player {
         return false;
     }
 
-    abstract void selectMove(String move);
+    public abstract void selectMove(String move);
 
 }

@@ -1,10 +1,12 @@
 import Model.Player.Player;
 
+import java.util.Scanner;
+
 
 public class Game {
     private int rows;
     private int columns;
-    private int amountOfMoves=0;
+    private int amountOfMoves;
     private Player player1;
     private Player player2;
 
@@ -26,15 +28,18 @@ public class Game {
         player2.placeShips(player1.getOpponentField());
     }
     public void play(){
+        Scanner scanner = new Scanner(System.in);
         if(this.amountOfMoves==0){
             do{
-
+                player1.selectMove(scanner.next());
+                player2.selectMove(scanner.next());
             }while(!player1.hasWon() && !player2.hasWon());
         }else {
             int counter=0;
             do {
                  counter++;
-
+                player1.selectMove(scanner.next());
+                player2.selectMove(scanner.next());
             } while (this.amountOfMoves!=counter);
 
         }
