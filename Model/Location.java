@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Player.Player;
 import Model.Ships.Ship;
 
 public class Location {
@@ -7,6 +8,7 @@ public class Location {
     private int col;
     private Ship occupyingShip;
     private boolean isMarked;
+    private Player markedBy;
 
     public Location(int row, int col, Ship occupyingShip, boolean isMarked) {
         this.row = row;
@@ -68,4 +70,11 @@ public class Location {
             return false;
     }
 
+    public Player getMarkedBy() {
+        return markedBy;
+    }
+
+    public void setMarkedBy(Player markedBy) {
+        this.markedBy = markedBy;
+    }
 }

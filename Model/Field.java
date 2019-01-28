@@ -51,9 +51,8 @@ public class Field {
     }
 
 
-
     public boolean placeShip(Ship s) {
-        boolean isSuccessful=false;
+        boolean isSuccessful = false;
         int length = s.getLength();
         ShipDirection direction = s.getDirection();
 
@@ -70,9 +69,10 @@ public class Field {
 
             } else {
                 for (int i = s.start[1]; i < s.start[1] + length; i++) {
-                    isSuccessful=true;
+                    isSuccessful = true;
                     locations[s.start[0]][i].setOccupyingShip(s);
                 }
+                player.setScoreToBeCollected(s.getPoints());
             }
         } else if (direction.equals(ShipDirection.VERTICAL)) {
             boolean check = false;
@@ -87,9 +87,10 @@ public class Field {
 
             } else {
                 for (int i = s.start[0]; i < s.start[0] + length; i++) {
-                    isSuccessful=true;
+                    isSuccessful = true;
                     locations[i][s.start[1]].setOccupyingShip(s);
                 }
+                player.setScoreToBeCollected(s.getPoints());
             }
         }
         return isSuccessful;
@@ -116,7 +117,8 @@ public class Field {
 
 
     public void placeShipRandomly(Ship s, int maxTries) {
-        int tries=0;
+        int tries = 0;
+        boolean isPlaced = false;
         do {
             tries++;
             int length = s.getLength();
@@ -128,16 +130,23 @@ public class Field {
 
             int row = random.nextInt(rows);
             int col = random.nextInt(columns);
-            int start[] = {row,col};
+            int start[] = {row, col};
             s.setStart(start);
-//ERROR
             if (direction.equals(ShipDirection.HORIZONTAL)) {
                 boolean check = false;
-                for (int i = s.start[1]; i < s.start[1] + length; i++) {
-                    if (locations[i][s.start[1]].isEmpty()) {
+                if((s.start[1] + length)>=getColumns()||(s.start[0] + length) >= getRows()){
+                    check = true;
+                }else {
+                    for (int i = s.start[1]; i < s.start[1] + length; i++) {
+                        if (locations[s.start[0]][i] == null) {
+                            check = true;
+                            break;
 
-                    } else {
-                        check = true;
+                        } else if (locations[s.start[1]][i].isEmpty()) {
+
+                        } else {
+                            check = true;
+                        }
                     }
                 }
                 if (check) {
@@ -146,40 +155,70 @@ public class Field {
                     for (int i = s.start[1]; i < s.start[1] + length; i++) {
                         locations[s.start[0]][i].setOccupyingShip(s);
                     }
+                    isPlaced = true;
+                    player.setScoreToBeCollected(s.getPoints());
                 }
             } else if (direction.equals(ShipDirection.VERTICAL)) {
                 boolean check = false;
-                for (int i = s.start[0]; i < s.start[0] + length; i++) {
-                    if (locations[i][s.start[1]].isEmpty()) {
-
-                    } else {
-                        check = true;
-                    }
-                }
-                if (check) {
-
+                if ((s.start[0] + length >= getRows())||(s.start[1] + length)>=getColumns()) {
+                    check = true;
                 } else {
                     for (int i = s.start[0]; i < s.start[0] + length; i++) {
-                        locations[i][s.start[1]].setOccupyingShip(s);
+                        if (locations[i][s.start[1]] == null) {
+                            check = true;
+                            break;
+                        } else if (locations[i][s.start[1]].isEmpty()) {
+
+                        } else {
+                            check = true;
+                        }
+                    }
+                    if (check) {
+
+                    } else {
+                        for (int i = s.start[0]; i < s.start[0] + length; i++) {
+                            locations[i][s.start[1]].setOccupyingShip(s);
+                        }
+                        isPlaced = true;
+                        player.setScoreToBeCollected(s.getPoints());
                     }
                 }
             }
-        }while (maxTries!=tries);
+        } while (maxTries != tries&& !isPlaced);
+        toStringWithShips();
 
     }
 
     public void processValidMove(Location moveLoc) {
-
-    }
-
-    public String toString() {
-        // Returns a string for the whole f􏰀ield which can be used to print it as described at the beginning
-        // of the section “Main game”.
-        return null;
+        locations[moveLoc.getRow()][moveLoc.getCol()].mark();
     }
 
     public void toStringWithShips() {
-
+        System.out.println();
+        for (int i = 0; i < columns; i++) {
+            System.out.print("  "+i+" ");
+        }
+        System.out.println();
+        for (int i = 0; i < columns; i++) {
+            System.out.print("----");
+        }
+        System.out.println();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if(locations[i][j].getOccupyingShip()!=null) {
+                    if(locations[i][j].isMarked()){
+                        System.out.print(" x"+locations[i][j].getOccupyingShip().getLetter()+" ");
+                    }else{
+                        System.out.print("  "+locations[i][j].getOccupyingShip().getLetter()+" ");
+                    }
+                }else if(!locations[i][j].isMarked()){
+                    System.out.print("  O ");
+                }else if(locations[i][j].isMarked()){
+                    System.out.print("  X ");
+                }
+            }
+            System.out.println();
+        }
     }
 
     public Location[][] getLocations() {
@@ -192,5 +231,9 @@ public class Field {
 
     public int getColumns() {
         return columns;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

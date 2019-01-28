@@ -16,7 +16,7 @@ public class AircraftCarrier extends Ship{
     }
 
     @Override
-    void threaten() {
+    public void threaten() {
         //it does not move.
     }
 }

@@ -3,13 +3,13 @@ package Model.Ships;
 import Model.Field;
 
 public abstract class Ship {
-    private int length;//(the number of positions it occupies)
+    private int length;
     private int points;
     private String letter;
     private Field field;
     public int[] start;
     private ShipDirection direction;
-    private int counter;
+    private int counter=0;
 
     public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction) {
         this.length = length;
@@ -22,6 +22,11 @@ public abstract class Ship {
 
     public void hit(){
         counter++;
+        System.out.println(getHitMessage());
+        if(isSinking()){
+            field.getPlayer().setScore(getPoints());
+            getSinkMessage();
+        }
     }
 
     public boolean isHit(){
@@ -33,6 +38,7 @@ public abstract class Ship {
     }
 
     public boolean isSinking(){
+        System.out.println(getSinkMessage());
         return (counter == length);
     }
 

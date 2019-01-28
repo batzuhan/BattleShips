@@ -7,15 +7,14 @@ import Model.Field;
 import Model.Location;
 import Model.Ships.*;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlayerHuman extends Player {
+    private int type;
 
 
-
-    public PlayerHuman(String name) {
-        super(name);
+    public PlayerHuman(String name,int type) {
+        super(name,type);
 
     }
 
@@ -56,7 +55,7 @@ public class PlayerHuman extends Player {
     @Override
     public Location selectMove(String move) throws InvalidLocationException {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter a valid location (e.g. B10): ");
+        System.out.println("Enter a valid location (e.g. A5): ");
         String input = scan.nextLine();
 
         if (input.equals("help")

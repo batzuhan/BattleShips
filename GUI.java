@@ -1,3 +1,4 @@
+import Model.Exceptions.InvalidLocationException;
 import Model.Game;
 import Model.Player.Player;
 import Model.Player.PlayerComputer;
@@ -101,14 +102,14 @@ public class GUI {
 
         public void actionPerformed(ActionEvent e) {
             if (!choice1) {
-                player1 = new PlayerHuman(player1Name.getText());
+                player1 = new PlayerHuman(player1Name.getText(),0);
             } else {
-                player1 = new PlayerComputer(player1Name.getText());
+                player1 = new PlayerComputer(player1Name.getText(),1);
             }
             if (!choice2) {
-                player2 = new PlayerHuman(player2Name.getText());
+                player2 = new PlayerHuman(player2Name.getText(),0);
             } else {
-                player2 = new PlayerComputer(player2Name.getText());
+                player2 = new PlayerComputer(player2Name.getText(),1);
             }
             int rowsInt = Integer.parseInt(rows.getSelectedItem().toString());
             int colsInt = Integer.parseInt(cols.getSelectedItem().toString());
@@ -116,9 +117,12 @@ public class GUI {
             Game game = new Game(rowsInt, colsInt, player1, player2, amount);
             game.init();
             game.placeShips();
-            game.play();
+            try {
+                game.play();
+            } catch (InvalidLocationException e1) {
+                e1.printStackTrace();
+            }
             game.showResult();
-            gameField gameField = new gameField(game);
         }
     }
 

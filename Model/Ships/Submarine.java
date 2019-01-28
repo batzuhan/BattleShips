@@ -16,7 +16,7 @@ public class Submarine extends Ship {
     }
 
     @Override
-    void threaten() {
+    public void threaten() {
 
     }
 }

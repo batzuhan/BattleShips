@@ -13,9 +13,11 @@ import java.util.ArrayList;
 
 public abstract class Player {
     private String name;
-    private int score;
+    private int type;
+    private int score=0;
     private Field opponentField;
     private Game game;
+    private int scoreToBeCollected=0;
     public ArrayList<Ship> ships = new ArrayList<>();
     AircraftCarrier a1 = new AircraftCarrier(5, 5, "A", null, null, null);
     AircraftCarrier a2 = new AircraftCarrier(5, 5, "A", null, null, null);
@@ -25,8 +27,9 @@ public abstract class Player {
     Submarine s1 = new Submarine(1, 3, "S", null, null, null);
     Submarine s2 = new Submarine(1, 3, "S", null, null, null);
 
-    public Player (String name){
+    public Player (String name,int type){
         this.name = name;
+        this.type = type;
         ships.add(a1);
         ships.add(a2);
         ships.add(d1);
@@ -34,6 +37,14 @@ public abstract class Player {
         ships.add(d3);
         ships.add(s1);
         ships.add(s2);
+    }
+
+    public int getScoreToBeCollected() {
+        return scoreToBeCollected;
+    }
+
+    public void setScoreToBeCollected(int scoreToBeCollected) {
+        this.scoreToBeCollected += scoreToBeCollected;
     }
 
     public String getName() {
@@ -49,7 +60,7 @@ public abstract class Player {
     }
 
     public void setScore(int score) {
-        this.score = score;
+        this.score += score;
     }
 
     public Field getOpponentField() {
@@ -68,9 +79,13 @@ public abstract class Player {
     public abstract void placeShips(Field otherField);
 
     public boolean hasWon(){
-        if(score==22)
-        return true;
-        return false;
+        if(score==scoreToBeCollected){
+            return true;
+        }else{
+            return false;
+        }
+
+
     }
 
     public abstract Location selectMove(String move) throws InvalidLocationException;
@@ -81,5 +96,13 @@ public abstract class Player {
 
     public Game getGame() {
         return game;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
