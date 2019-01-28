@@ -10,7 +10,8 @@ public enum ShipDirection{
             return VERTICAL;
         }else if(dirString.substring(0,1).toLowerCase().equals("h")){
             return HORIZONTAL;
+        }else{
+            return null;
         }
-        return null;
     }
 }

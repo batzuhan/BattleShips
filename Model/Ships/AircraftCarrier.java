@@ -6,7 +6,7 @@ import Model.Location;
 public class AircraftCarrier extends Ship{
 
 
-    public AircraftCarrier(int length, int points, String letter, Field field, int[] start, String direction) {
+    public AircraftCarrier(int length, int points, String letter, Field field, int[] start, ShipDirection direction) {
         super(length, points, letter, field, start, direction);
     }
 

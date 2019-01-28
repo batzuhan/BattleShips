@@ -6,7 +6,7 @@ import Model.Location;
 public class Submarine extends Ship {
 
 
-    public Submarine(int length, int points, String letter, Field field, int[] start, String direction) {
+    public Submarine(int length, int points, String letter, Field field, int[] start, ShipDirection direction) {
         super(length, points, letter, field, start, direction);
     }
 

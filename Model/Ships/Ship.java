@@ -8,10 +8,10 @@ public abstract class Ship {
     private String letter;
     private Field field;
     public int[] start;
-    private String direction;
+    private ShipDirection direction;
     private int counter;
 
-    public Ship(int length, int points, String letter, Field field, int[] start, String direction) {
+    public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction) {
         this.length = length;
         this.points = points;
         this.letter = letter;
@@ -71,11 +71,11 @@ public abstract class Ship {
         this.start = start;
     }
 
-    public String getDirection() {
+    public ShipDirection getDirection() {
         return direction;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(ShipDirection direction) {
         this.direction = direction;
     }
 }

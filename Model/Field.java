@@ -3,6 +3,7 @@ package Model;
 import Model.Exceptions.InvalidLocationException;
 import Model.Player.Player;
 import Model.Ships.Ship;
+import Model.Ships.ShipDirection;
 
 import java.util.Random;
 
@@ -54,9 +55,9 @@ public class Field {
     public boolean placeShip(Ship s) {
         boolean isSuccessful=false;
         int length = s.getLength();
-        String direction = s.getDirection();
+        ShipDirection direction = s.getDirection();
 
-        if (direction.equals("HORIZONTAL")) {
+        if (direction.equals(ShipDirection.HORIZONTAL)) {
             boolean check = false;
             for (int i = s.start[1]; i < s.start[1] + length; i++) {
                 if (locations[i][s.start[1]].isEmpty()) {
@@ -73,7 +74,7 @@ public class Field {
                     locations[s.start[0]][i].setOccupyingShip(s);
                 }
             }
-        } else if (direction.equals("VERTICAL")) {
+        } else if (direction.equals(ShipDirection.VERTICAL)) {
             boolean check = false;
             for (int i = s.start[0]; i < s.start[0] + length; i++) {
                 if (locations[i][s.start[1]].isEmpty()) {
@@ -96,15 +97,15 @@ public class Field {
 
     public void removeShip(Ship s) {
         int length = s.getLength();
-        String direction = s.getDirection();
+        ShipDirection direction = s.getDirection();
 
-        if (direction.equals("HORIZONTAL")) {
+        if (direction.equals(ShipDirection.HORIZONTAL)) {
             {
                 for (int i = s.start[1]; i < s.start[1] + length; i++) {
                     locations[s.start[0]][i].setOccupyingShip(null);
                 }
             }
-        } else if (direction.equals("VERTICAL")) {
+        } else if (direction.equals(ShipDirection.VERTICAL)) {
             {
                 for (int i = s.start[0]; i < s.start[0] + length; i++) {
                     locations[i][s.start[1]].setOccupyingShip(null);
@@ -119,10 +120,10 @@ public class Field {
         do {
             tries++;
             int length = s.getLength();
-            String [] directions = {"HORIZONTAL", "VERTICAL"};
+            String[] directions = {"HORIZONTAL", "VERTICAL"};
             Random random = new Random();
             int select = random.nextInt(directions.length);
-            String direction = directions[select];
+            ShipDirection direction = ShipDirection.fromString(directions[select]);
             s.setDirection(direction);
 
             int row = random.nextInt(rows);
@@ -130,7 +131,7 @@ public class Field {
             int start[] = {row,col};
             s.setStart(start);
 //ERROR
-            if (direction.equals("HORIZONTAL")) {
+            if (direction.equals(ShipDirection.HORIZONTAL)) {
                 boolean check = false;
                 for (int i = s.start[1]; i < s.start[1] + length; i++) {
                     if (locations[i][s.start[1]].isEmpty()) {
@@ -146,7 +147,7 @@ public class Field {
                         locations[s.start[0]][i].setOccupyingShip(s);
                     }
                 }
-            } else if (direction.equals("VERTICAL")) {
+            } else if (direction.equals(ShipDirection.VERTICAL)) {
                 boolean check = false;
                 for (int i = s.start[0]; i < s.start[0] + length; i++) {
                     if (locations[i][s.start[1]].isEmpty()) {
@@ -183,5 +184,13 @@ public class Field {
 
     public Location[][] getLocations() {
         return locations;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
     }
 }
