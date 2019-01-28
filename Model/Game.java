@@ -90,8 +90,13 @@ public class Game {
     public void showResult() {
         if (player1.hasWon()) {
             System.out.println(player1.getName() + " has won!");
-        } else {
+        } else if(player2.hasWon()){
             System.out.println(player2.getName() + " has won!");
+        }else{
+            System.out.println("Out of Moves!");
+            System.out.println("Scores: ");
+            System.out.println(player1.getScore());
+            System.out.println(player2.getScore());
         }
     }
 
