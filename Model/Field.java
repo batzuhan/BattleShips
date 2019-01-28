@@ -185,7 +185,6 @@ public class Field {
                 }
             }
         } while (maxTries != tries&& !isPlaced);
-        toStringWithShips();
 
     }
 

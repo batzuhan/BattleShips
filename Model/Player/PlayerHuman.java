@@ -54,16 +54,12 @@ public class PlayerHuman extends Player {
 
     @Override
     public Location selectMove(String move) throws InvalidLocationException {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter a valid location (e.g. A5): ");
-        String input = scan.nextLine();
+        if (move.equals("help")
+                || move.equals("save")
+                || move.equals("load")
+                || move.equals("exit")) {
 
-        if (input.equals("help")
-                || input.equals("save")
-                || input.equals("load")
-                || input.equals("exit")) {
-
-            switch (input) {
+            switch (move) {
                 case "help":
                     throw new MoveIsCommandException(Command.HELP);
 
@@ -80,15 +76,10 @@ public class PlayerHuman extends Player {
             return null;
 
         } else {
-            int row = letterToInt(input.substring(0, 1));
-            Scanner scanner = new Scanner(input.substring(1));
+            int row = letterToInt(move.substring(0, 1).toUpperCase());
+            int col = Integer.parseInt(move.substring(1));
 
-
-            int col = scanner.nextInt();
-
-            if (row > 0 && row < getOpponentField().getRows()
-                    && col > 0 && col < getOpponentField().getColumns()
-                    && !(getOpponentField().getLocation(row, col - 1).isMarked())) {
+            if (row >= 0 && row < getOpponentField().getRows() && col >= 0 && col < getOpponentField().getColumns() && !(getOpponentField().getLocation(row, col).isMarked())) {
                 return getOpponentField().getLocation(row, col);
 
             } else {

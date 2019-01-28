@@ -9,23 +9,24 @@ public abstract class Ship {
     private Field field;
     public int[] start;
     private ShipDirection direction;
-    private int counter=0;
+    private int counter;
 
-    public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction) {
+    public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction,int counter) {
         this.length = length;
         this.points = points;
         this.letter = letter;
         this.field = field;
         this.start = start;
         this.direction = direction;
+        this.counter=counter;
     }
 
     public void hit(){
-        counter++;
+        ++counter;
         System.out.println(getHitMessage());
         if(isSinking()){
             field.getPlayer().setScore(getPoints());
-            getSinkMessage();
+            System.out.println(getSinkMessage());
         }
     }
 
@@ -38,7 +39,6 @@ public abstract class Ship {
     }
 
     public boolean isSinking(){
-        System.out.println(getSinkMessage());
         return (counter == length);
     }
 
