@@ -54,7 +54,6 @@ public class Location {
         this.col = col;
     }
 
-    //gözden geçir
     public boolean isEmpty(){
         if(getOccupyingShip() == null)
             return true;

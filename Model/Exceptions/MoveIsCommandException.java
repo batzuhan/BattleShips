@@ -2,21 +2,21 @@ package Model.Exceptions;
 
 
 public class MoveIsCommandException extends InvalidLocationException {
-    private Command cmd ;
+    private Command cmd;
 
-    public MoveIsCommandException(){
+    public MoveIsCommandException() {
         super("MoveIsCommandException!");
     }
 
-    public MoveIsCommandException(String s){
-        super(s);
+    public MoveIsCommandException(Command cmd) {
+        super(cmd.getCommandString());
     }
 
-    public void MoveIsCommandException(Command cmd){
+    public void MoveIsCommandException(Command cmd) {
         this.cmd = cmd;
     }
 
-    public Command getCommand(){
+    public Command getCommand() {
         return cmd;
     }
 }

@@ -1,14 +1,39 @@
 package Model.Player;
 
+import Model.Exceptions.InvalidLocationException;
 import Model.Field;
+import Model.Location;
+import Model.Game;
+import Model.Ships.AircraftCarrier;
+import Model.Ships.Destroyer;
+import Model.Ships.Ship;
+import Model.Ships.Submarine;
+
+import java.util.ArrayList;
 
 public abstract class Player {
     private String name;
     private int score;
     private Field opponentField;
+    private Game game;
+    public ArrayList<Ship> ships = new ArrayList<>();
+    AircraftCarrier a1 = new AircraftCarrier(5, 5, "A", null, null, null);
+    AircraftCarrier a2 = new AircraftCarrier(5, 5, "A", null, null, null);
+    Destroyer d1 = new Destroyer(3, 2, "D", null, null, null);
+    Destroyer d2 = new Destroyer(3, 2, "D", null, null, null);
+    Destroyer d3 = new Destroyer(3, 2, "D", null, null, null);
+    Submarine s1 = new Submarine(1, 3, "S", null, null, null);
+    Submarine s2 = new Submarine(1, 3, "S", null, null, null);
 
     public Player (String name){
         this.name = name;
+        ships.add(a1);
+        ships.add(a2);
+        ships.add(d1);
+        ships.add(d2);
+        ships.add(d3);
+        ships.add(s1);
+        ships.add(s2);
     }
 
     public String getName() {
@@ -48,6 +73,13 @@ public abstract class Player {
         return false;
     }
 
-    public abstract void selectMove(String move);
+    public abstract Location selectMove(String move) throws InvalidLocationException;
 
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return game;
+    }
 }

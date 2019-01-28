@@ -1,3 +1,6 @@
+package Model;
+
+import Model.Exceptions.InvalidLocationException;
 import Model.Player.Player;
 
 import java.util.Scanner;
@@ -27,7 +30,7 @@ public class Game {
         player1.placeShips(player2.getOpponentField());
         player2.placeShips(player1.getOpponentField());
     }
-    public void play(){
+    public void play()throws InvalidLocationException {
         Scanner scanner = new Scanner(System.in);
         if(this.amountOfMoves==0){
             do{
@@ -59,5 +62,13 @@ public class Game {
 
     public int getColumns() {
         return columns;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 }

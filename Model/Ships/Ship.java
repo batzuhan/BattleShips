@@ -42,7 +42,7 @@ public abstract class Ship {
 
     abstract String getSinkMessage();
 
-    abstract void threaten();
+    public abstract void threaten();
 
     public int getLength() {
         return length;
@@ -57,6 +57,9 @@ public abstract class Ship {
         return letter;
     }
 
+    public void setField(Field field) {
+        this.field = field;
+    }
 
     public Field getField() {
         return field;

@@ -1,3 +1,7 @@
+package Model;
+
+import Model.Game;
+
 import java.io.*;
 
 public class FileOperations {

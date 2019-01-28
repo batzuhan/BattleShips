@@ -1,3 +1,4 @@
+import Model.Game;
 import Model.Player.Player;
 import Model.Player.PlayerComputer;
 import Model.Player.PlayerHuman;
