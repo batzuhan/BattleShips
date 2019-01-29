@@ -30,7 +30,7 @@ public class GUI {
         JTextField player1Field = new JTextField(10);
         JLabel player2Label = new JLabel("Player2 name: ");
         JTextField player2Field = new JTextField(10);
-        Integer[] amounts = {0,1,2,3, 4, 5, 6, 7, 8, 9, 10};
+        Integer[] amounts = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         JLabel amountOfMovesLabel = new JLabel("Amount of moves: ");
         JComboBox<Integer> amountOfMoves = new JComboBox<Integer>(amounts);
         JRadioButton player1User = new JRadioButton("player1User");
@@ -97,7 +97,7 @@ public class GUI {
         private JComboBox amountOfMoves;
         private JFrame frame;
 
-        public settingsSaveButton(JComboBox rows, JComboBox cols, JTextField player1Name, JTextField player2Name, JComboBox amountOfMoves, JFrame frame) {
+         settingsSaveButton(JComboBox rows, JComboBox cols, JTextField player1Name, JTextField player2Name, JComboBox amountOfMoves, JFrame frame) {
             this.rows = rows;
             this.cols = cols;
             this.player1Name = player1Name;
@@ -133,15 +133,15 @@ public class GUI {
     }
 
 
-    public static class gameField {
-        public static JFrame gameFrame;
-        public static JFrame gameFrame2;
-        public static JButton[][] buttons;
-        public static JButton[][] buttons2;
-        public static JPanel mainPanel;
-        public static JPanel mainPanel2;
+    static class gameField {
+        static JFrame gameFrame;
+        static JFrame gameFrame2;
+        static JButton[][] buttons;
+        static JButton[][] buttons2;
+        static JPanel mainPanel;
+        static JPanel mainPanel2;
 
-        public gameField(Game game) {
+        gameField(Game game) {
             gameFrame = new JFrame();
             mainPanel = new JPanel();
             mainPanel.setLayout(new GridLayout(game.getRows(), game.getColumns()));
@@ -189,7 +189,7 @@ public class GUI {
             gameFrame2.setResizable(true);
         }
 
-        public static void revalidate(Game game) {
+         static void revalidate(Game game) {
             mainPanel.removeAll();
             buttons = new JButton[game.getRows()][game.getColumns()];
             for (int row = 0; row < game.getPlayer2().getOpponentField().getRows(); row++) {
@@ -198,8 +198,8 @@ public class GUI {
                     boolean mark = game.getPlayer2().getOpponentField().getLocation(row, col).isMarked();
                     if (mark) {
                         buttons[row][col].setText("X");
-                        if(game.getPlayer2().getOpponentField().getLocation(row, col).getOccupyingShip()!=null){
-                            buttons[row][col].setText("x"+game.getPlayer2().getOpponentField().getLocation(row, col).getOccupyingShip().getLetter());
+                        if (game.getPlayer2().getOpponentField().getLocation(row, col).getOccupyingShip() != null) {
+                            buttons[row][col].setText("x" + game.getPlayer2().getOpponentField().getLocation(row, col).getOccupyingShip().getLetter());
                         }
                     } else {
                         buttons[row][col].setText("O");
@@ -215,8 +215,8 @@ public class GUI {
                     boolean mark = game.getPlayer1().getOpponentField().getLocation(row, col).isMarked();
                     if (mark) {
                         buttons2[row][col].setText("X");
-                        if(game.getPlayer1().getOpponentField().getLocation(row, col).getOccupyingShip()!=null){
-                            buttons2[row][col].setText("x"+game.getPlayer1().getOpponentField().getLocation(row, col).getOccupyingShip().getLetter());
+                        if (game.getPlayer1().getOpponentField().getLocation(row, col).getOccupyingShip() != null) {
+                            buttons2[row][col].setText("x" + game.getPlayer1().getOpponentField().getLocation(row, col).getOccupyingShip().getLetter());
                         }
                     } else {
                         buttons2[row][col].setText("O");
@@ -230,12 +230,10 @@ public class GUI {
 
 
     public class RadioButtons implements ActionListener {
-        public RadioButtons() {
+         RadioButtons() {
         }
 
         public void actionPerformed(ActionEvent e) {
-            String a;
-            a = e.getActionCommand();
             if (e.getActionCommand().equals("player1User")) {
                 choice1 = false;
             } else if (e.getActionCommand().equals("player1CPU")) {
@@ -252,7 +250,7 @@ public class GUI {
     public class FileChooser implements ActionListener {
         private JFrame frame;
 
-        public FileChooser(JFrame frame) {
+         FileChooser(JFrame frame) {
             this.frame = frame;
         }
 
