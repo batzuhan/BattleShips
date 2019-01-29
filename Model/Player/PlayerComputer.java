@@ -9,7 +9,7 @@ import Model.Ships.Submarine;
 import java.util.Random;
 
 public class PlayerComputer extends Player {
-    private int type;
+    private int[][] memory;
 
     public PlayerComputer(String name, int type) {
         super(name, type);
@@ -31,39 +31,38 @@ public class PlayerComputer extends Player {
         otherField.placeShipRandomly(d3, 5);
         otherField.placeShipRandomly(s1, 5);
         otherField.placeShipRandomly(s2, 5);
+        this.memory = new int[getOpponentField().getRows()][getOpponentField().getColumns()];
+        for (int i = 0; i < getOpponentField().getRows(); i++) {
+            for (int j = 0; j < getOpponentField().getColumns(); j++) {
+                memory[i][j] = 0;
+            }
+        }
     }
 
     @Override
     public Location selectMove(String move) {
         Random generator = new Random(System.currentTimeMillis());
         int row, col;
-        int[][] memory = new int[getOpponentField().getRows()][getOpponentField().getColumns()];
-        for (int i = 0; i < getOpponentField().getRows(); i++) {
-            for (int j = 0; j < getOpponentField().getColumns(); j++) {
-                memory[i][j] = 0;
-            }
-        }
-        int counter=0;
-        do {
-            if(counter>((getOpponentField().getRows()/2)*(getOpponentField().getColumns()))){
-                for (int i = 0; i < getOpponentField().getRows(); i++) {
-                    for (int j = 0; j < getOpponentField().getColumns(); j++) {
-                        if(memory[i][j] == 0){
-                            memory[i][j]=1;
-                            return getOpponentField().getLocation(i, j);
-                        }
+
+        row = generator.nextInt(getOpponentField().getRows());
+        col = generator.nextInt(getOpponentField().getColumns());
+        /*while (memory[row][col] == 1) {
+            row = generator.nextInt(getOpponentField().getRows());
+            col = generator.nextInt(getOpponentField().getColumns());
+            tried going full random, memory errors occured.
+        }*/
+        if (memory[row][col] == 1) {
+            for (int i = 0; i < getOpponentField().getRows(); i++) {
+                for (int j = 0; j < getOpponentField().getColumns(); j++) {
+                    if (memory[i][j] == 0) {
+                        row = i;
+                        col = j;
+                        break;
                     }
                 }
             }
-
-            row = generator.nextInt(getOpponentField().getRows());
-            col = generator.nextInt(getOpponentField().getColumns());
-            memory[row][col] = 1;
-        } while ((row > 0 && row < getOpponentField().getRows())
-                && (col > 0 && col < getOpponentField().getColumns())
-                && !(getOpponentField().getLocation(row, col).isEmpty())
-                && getOpponentField().getLocation(row, col).isMarked());
-
+        }
+        memory[row][col] = 1;
         return getOpponentField().getLocation(row, col);
     }
 

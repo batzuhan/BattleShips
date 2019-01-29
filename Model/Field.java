@@ -134,9 +134,9 @@ public class Field {
             s.setStart(start);
             if (direction.equals(ShipDirection.HORIZONTAL)) {
                 boolean check = false;
-                if((s.start[1] + length)>=getColumns()||(s.start[0] + length) >= getRows()){
+                if ((s.start[1] + length) >= getColumns() || (s.start[0] + length) >= getRows()) {
                     check = true;
-                }else {
+                } else {
                     for (int i = s.start[1]; i < s.start[1] + length; i++) {
                         if (locations[s.start[0]][i] == null) {
                             check = true;
@@ -160,7 +160,7 @@ public class Field {
                 }
             } else if (direction.equals(ShipDirection.VERTICAL)) {
                 boolean check = false;
-                if ((s.start[0] + length >= getRows())||(s.start[1] + length)>=getColumns()) {
+                if ((s.start[0] + length >= getRows()) || (s.start[1] + length) >= getColumns()) {
                     check = true;
                 } else {
                     for (int i = s.start[0]; i < s.start[0] + length; i++) {
@@ -184,18 +184,25 @@ public class Field {
                     }
                 }
             }
-        } while (maxTries != tries&& !isPlaced);
+        } while (maxTries != tries && !isPlaced);
 
     }
 
     public void processValidMove(Location moveLoc) {
-        locations[moveLoc.getRow()][moveLoc.getCol()].mark();
+        if (moveLoc == null) {
+
+        } else {
+            locations[moveLoc.getRow()][moveLoc.getCol()].mark();
+        }
+
     }
 
     public void toStringWithShips() {
         System.out.println();
+        System.out.println("Player "+this.player.getName()+"'s field:");
+        System.out.println();
         for (int i = 0; i < columns; i++) {
-            System.out.print("  "+i+" ");
+            System.out.print("  " + i + " ");
         }
         System.out.println();
         for (int i = 0; i < columns; i++) {
@@ -204,15 +211,15 @@ public class Field {
         System.out.println();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if(locations[i][j].getOccupyingShip()!=null) {
-                    if(locations[i][j].isMarked()){
-                        System.out.print(" x"+locations[i][j].getOccupyingShip().getLetter()+" ");
-                    }else{
-                        System.out.print("  "+locations[i][j].getOccupyingShip().getLetter()+" ");
+                if (locations[i][j].getOccupyingShip() != null) {
+                    if (locations[i][j].isMarked()) {
+                        System.out.print(" x" + locations[i][j].getOccupyingShip().getLetter() + " ");
+                    } else {
+                        System.out.print("  " + locations[i][j].getOccupyingShip().getLetter() + " ");
                     }
-                }else if(!locations[i][j].isMarked()){
+                } else if (!locations[i][j].isMarked()) {
                     System.out.print("  O ");
-                }else if(locations[i][j].isMarked()){
+                } else if (locations[i][j].isMarked()) {
                     System.out.print("  X ");
                 }
             }

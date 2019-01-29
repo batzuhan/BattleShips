@@ -17,8 +17,8 @@ public class Location {
         this.isMarked = isMarked;
     }
 
-    public void mark(){
-        if(getOccupyingShip()!=null)
+    public void mark() {
+        if (getOccupyingShip() != null)
             occupyingShip.hit();
 
         this.setMarked(true);
@@ -56,15 +56,15 @@ public class Location {
         this.col = col;
     }
 
-    public boolean isEmpty(){
-        if(getOccupyingShip() == null)
+    public boolean isEmpty() {
+        if (getOccupyingShip() == null)
             return true;
         else
             return false;
     }
 
-    public boolean isHit(){
-        if(getOccupyingShip()!=null&&isMarked())
+    public boolean isHit() {
+        if (getOccupyingShip() != null && isMarked())
             return true;
         else
             return false;

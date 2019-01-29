@@ -11,39 +11,46 @@ public abstract class Ship {
     private ShipDirection direction;
     private int counter;
 
-    public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction,int counter) {
+    public Ship(int length, int points, String letter, Field field, int[] start, ShipDirection direction, int counter) {
         this.length = length;
         this.points = points;
         this.letter = letter;
         this.field = field;
         this.start = start;
         this.direction = direction;
-        this.counter=counter;
+        this.counter = counter;
     }
 
-    public void hit(){
+    public void hit() {
         ++counter;
         System.out.println(getHitMessage());
-        if(isSinking()){
+        if (isSinking()) {
             field.getPlayer().setScore(getPoints());
-            System.out.println(getSinkMessage());
+            System.out.println(getSinkMessage() + " " + getPoints() + " points.");
         }
     }
 
-    public boolean isHit(){
-        if(counter>0){
+    public boolean isHit() {
+        if (counter > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean isSinking(){
-        return (counter == length);
+    public boolean isSinking() {
+        if(this.getLetter().equals("A")){
+            return (counter == length);
+        }else if(this.getLetter().equals("S")){
+            return (counter == 1);
+        }else{
+            return (counter == 2);
+        }
+
     }
 
     public String getHitMessage() {
-        return "A ship is hit.";
+        return "A ship is hit by " + this.getField().getPlayer().getName() + ".";
     }
 
     abstract String getSinkMessage();

@@ -30,18 +30,22 @@ public class Game {
     }
 
     public void placeShips() {
-        player1.placeShips(player2.getOpponentField());
-        player2.placeShips(player1.getOpponentField());
+        player1.placeShips(player1.getOpponentField());
+        player2.placeShips(player2.getOpponentField());
+        //player2.getOpponentField().toStringWithShips();
+        //player1.getOpponentField().toStringWithShips();
+        //for debugging
     }
 
     public void play() throws InvalidLocationException {
         Scanner scanner = new Scanner(System.in);
+        GUI.gameField gameField = new GUI.gameField(this);
         if (this.amountOfMoves == 0) {
             do {
                 if (player1.getType() == 0) {
                     System.out.println("Enter a valid location (e.g. A5): ");
                     player2.getOpponentField().processValidMove(player1.selectMove(scanner.next()));
-                    player2.getOpponentField().toStringWithShips();
+
                 }
 
                 if (player1.getType() == 1)
@@ -51,12 +55,13 @@ public class Game {
                 if (player2.getType() == 0) {
                     System.out.println("Enter a valid location (e.g. A5): ");
                     player1.getOpponentField().processValidMove(player2.selectMove(scanner.next()));
-                    player1.getOpponentField().toStringWithShips();
+
                 }
 
                 if (player2.getType() == 1)
                     player1.getOpponentField().processValidMove(player2.selectMove(""));
 
+                GUI.gameField.revalidate(this);
             } while (!player1.hasWon() && !player2.hasWon());
         } else {
             int counter = 0;
@@ -65,7 +70,6 @@ public class Game {
                 if (player1.getType() == 0) {
                     System.out.println("Enter a valid location (e.g. A5): ");
                     player2.getOpponentField().processValidMove(player1.selectMove(scanner.next()));
-                    player2.getOpponentField().toStringWithShips();
                 }
 
                 if (player1.getType() == 1)
@@ -74,29 +78,39 @@ public class Game {
                 if (player2.getType() == 0) {
                     System.out.println("Enter a valid location (e.g. A5): ");
                     player1.getOpponentField().processValidMove(player2.selectMove(scanner.next()));
-                    player1.getOpponentField().toStringWithShips();
                 }
 
 
                 if (player2.getType() == 1)
                     player1.getOpponentField().processValidMove(player2.selectMove(""));
 
+                GUI.gameField.revalidate(this);
             } while (this.amountOfMoves != counter);
 
         }
-
+        this.showResult();
     }
 
     public void showResult() {
         if (player1.hasWon()) {
-            System.out.println(player1.getName() + " has won!");
-        } else if(player2.hasWon()){
-            System.out.println(player2.getName() + " has won!");
-        }else{
+            System.out.println(player1.getName() + " has won 1!");
+            System.out.println("Scores: ");
+            System.out.println(player1.getName() + ":  " + player1.getScore());
+            System.out.println(player2.getName() + ":  " + player2.getScore());
+            player2.getOpponentField().toStringWithShips();
+        } else if (player2.hasWon()) {
+            System.out.println(player2.getName() + " has won 2!");
+            System.out.println("Scores: ");
+            System.out.println(player1.getName() + ":  " + player1.getScore());
+            System.out.println(player2.getName() + ":  " + player2.getScore());
+            player1.getOpponentField().toStringWithShips();
+        } else {
             System.out.println("Out of Moves!");
             System.out.println("Scores: ");
             System.out.println(player1.getScore());
+            player2.getOpponentField().toStringWithShips();
             System.out.println(player2.getScore());
+            player1.getOpponentField().toStringWithShips();
         }
     }
 

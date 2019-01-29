@@ -2,8 +2,8 @@ package Model.Player;
 
 import Model.Exceptions.InvalidLocationException;
 import Model.Field;
-import Model.Location;
 import Model.Game;
+import Model.Location;
 import Model.Ships.AircraftCarrier;
 import Model.Ships.Destroyer;
 import Model.Ships.Ship;
@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public abstract class Player {
     private String name;
     private int type;
-    private int score=0;
+    private int score = 0;
     private Field opponentField;
     private Game game;
-    private int scoreToBeCollected=0;
+    private int scoreToBeCollected = 0;
     public ArrayList<Ship> ships = new ArrayList<>();
     AircraftCarrier a1 = new AircraftCarrier(5, 5, "A", null, null, null);
     AircraftCarrier a2 = new AircraftCarrier(5, 5, "A", null, null, null);
@@ -27,7 +27,7 @@ public abstract class Player {
     Submarine s1 = new Submarine(1, 3, "S", null, null, null);
     Submarine s2 = new Submarine(1, 3, "S", null, null, null);
 
-    public Player (String name,int type){
+    public Player(String name, int type) {
         this.name = name;
         this.type = type;
         ships.add(a1);
@@ -71,17 +71,17 @@ public abstract class Player {
         this.opponentField = opponentField;
     }
 
-    public void initField(int r, int c){
-        Field boardField = new Field(r,c,this);
+    public void initField(int r, int c) {
+        Field boardField = new Field(r, c, this);
         this.setOpponentField(boardField);
     }
 
     public abstract void placeShips(Field otherField);
 
-    public boolean hasWon(){
-        if(score==scoreToBeCollected){
+    public boolean hasWon() {
+        if (score == scoreToBeCollected) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
